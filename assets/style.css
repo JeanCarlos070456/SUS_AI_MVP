@@ -1,0 +1,10 @@
+/* Estilo leve e neutro. Ajuste à vontade. */
+.stDecoration { background-image: none; }
+
+html, body, [class*="css"] {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+section[data-testid="stSidebar"] {
+  border-right: 1px solid rgba(49, 51, 63, 0.12);
+}

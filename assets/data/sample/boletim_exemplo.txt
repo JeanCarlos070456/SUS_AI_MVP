@@ -1,0 +1,9 @@
+Boletim Epidemiológico - Exemplo (MVP)
+
+Este é um texto de exemplo para indexação quando não houver PDFs em assets/docs/.
+
+Dengue:
+- Casos prováveis: 1234
+- Incidência: 45,6 por 100 mil habitantes
+
+Região Oeste apresentou maior concentração de casos nas últimas semanas.
