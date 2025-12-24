@@ -1,0 +1,107 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# =========================
+# Virtualenvs
+# =========================
+.venv/
+venv/
+ENV/
+env/
+
+# =========================
+# Streamlit
+# =========================
+.streamlit/secrets.toml
+.streamlit/*.log
+
+# =========================
+# Jupyter / Notebooks
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDEs / Editors
+# =========================
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# OS / Windows junk
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+*.out
+
+# =========================
+# Local caches / downloads
+# =========================
+.cache/
+cache/
+tmp/
+temp/
+downloads/
+data_raw/
+data_tmp/
+
+# =========================
+# Secrets / env files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Geospatial leftovers
+# =========================
+*.gpkg-journal
+*.qgz~
+*.qgs~
+*.aux.xml
+*.cpg
+*.qmd
+
+# =========================
+# PDFs e índices gerados localmente (ajuste se quiser versionar)
+# =========================
+assets/docs/*.pdf
+assets/data/index/*.json
+
+# =========================
+# MinIO / S3 artifacts (local)
+# =========================
+minio_data/
+*.parquet
+*.feather
+
+# =========================
+# Node (se algum dia usar)
+# =========================
+node_modules/
