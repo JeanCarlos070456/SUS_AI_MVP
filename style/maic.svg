@@ -1,0 +1,76 @@
+<svg width="1200" height="1600" viewBox="0 0 1200 1600"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E2C66"/>
+      <stop offset="100%" stop-color="#0C1852"/>
+    </linearGradient>
+
+    <style>
+      .branch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .b1 { stroke: #0C1852; stroke-width: 10; }
+      .b2 { stroke: #026999; stroke-width: 8; }
+      .b3 { stroke: #1D958F; stroke-width: 6; }
+      .node1 { fill: #19BCBF; }
+      .node2 { fill: #F2AF21; }
+      .node3 { fill: #A95380; }
+      .node4 { fill: #2AC0C1; }
+      .title { fill: url(#blueGrad); font-family: Arial, Helvetica, sans-serif; font-weight: 800; }
+      .subtitle { fill: #026999; font-family: Arial, Helvetica, sans-serif; font-weight: 600; }
+    </style>
+  </defs>
+
+  <!-- TRONCO -->
+  <path d="M600 220 L600 760"
+        class="branch b1"/>
+
+  <path d="M585 260 L585 760"
+        class="branch b2"/>
+
+  <path d="M615 260 L615 760"
+        class="branch b3"/>
+
+  <!-- CRUZ / SAÚDE NO CENTRO -->
+  <rect x="560" y="340" width="80" height="220" rx="10" fill="#13215D"/>
+  <rect x="500" y="410" width="200" height="80" rx="10" fill="#13215D"/>
+
+  <!-- RAMOS ESQUERDA -->
+  <path d="M600 360 C460 320 360 260 240 220" class="branch b1"/>
+  <path d="M600 420 C460 400 350 360 220 320" class="branch b2"/>
+  <path d="M600 480 C470 480 360 480 260 500" class="branch b3"/>
+
+  <!-- RAMOS DIREITA -->
+  <path d="M600 360 C740 320 840 260 960 220" class="branch b1"/>
+  <path d="M600 420 C740 400 850 360 980 320" class="branch b2"/>
+  <path d="M600 480 C730 480 840 480 940 500" class="branch b3"/>
+
+  <!-- NÓS -->
+  <circle cx="240" cy="220" r="14" class="node1"/>
+  <circle cx="220" cy="320" r="12" class="node2"/>
+  <circle cx="260" cy="500" r="12" class="node3"/>
+
+  <circle cx="960" cy="220" r="14" class="node1"/>
+  <circle cx="980" cy="320" r="12" class="node2"/>
+  <circle cx="940" cy="500" r="12" class="node4"/>
+
+  <!-- TEXTO MAIC -->
+  <text x="600" y="1050" text-anchor="middle"
+        font-size="180"
+        class="title">
+    MAIC
+  </text>
+
+  <text x="600" y="1130" text-anchor="middle"
+        font-size="46"
+        class="subtitle">
+    MONITORAMENTO E AVALIAÇÃO
+  </text>
+
+  <text x="600" y="1185" text-anchor="middle"
+        font-size="46"
+        class="subtitle">
+    DE INDICADORES E CUSTOS
+  </text>
+
+</svg>

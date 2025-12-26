@@ -8,8 +8,8 @@ def _env(name: str, default: str | None = None) -> str | None:
 
 @dataclass(frozen=True)
 class Settings:
-    APP_TITLE: str = _env("APP_TITLE", "MAIC - Monitoramento e Avaliação de Indicadores e Custos") or "MAIC - Monitoramento e Avaliação de Indicadores e Custos"
-    APP_SUBTITLE: str = _env("APP_SUBTITLE", "MVP Streamlit: Chat + Dashboards + Mapas + PDFs") or ""
+    APP_TITLE: str = _env("APP_TITLE", "") or ""
+    APP_SUBTITLE: str = _env("", "") or ""
     ENV: str = _env("ENV", "dev") or "dev"
 
     # Datasources (placeholders)

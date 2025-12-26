@@ -34,7 +34,7 @@ def set_background():
     Define o fundo global do app usando o PNG em style/fundo/fundo_painel.png,
     com camada suave por cima (opacidade controlada no linear-gradient).
     """
-    img_path = "style/fundo/fundo_painel.png"
+    img_path = "style/fundo/fundo_painel_vazado.png"
     try:
         with open(img_path, "rb") as f:
             data = base64.b64encode(f.read()).decode("utf-8")
@@ -58,8 +58,35 @@ def set_background():
             unsafe_allow_html=True,
         )
     except FileNotFoundError:
-        # Se o arquivo não existir, não quebra o app
         logger.warning("Imagem de fundo não encontrada em %s", img_path)
+
+
+def show_header_logo():
+    """
+    Logo vazado centralizado no topo do painel (acima do título).
+    """
+    logo_path = "style/logo/logo_vazado.png"
+    try:
+        c1, c2, c3 = st.columns([1, 2, 1])
+        with c2:
+            st.image(logo_path, width=270)  # ajuste o width se quiser
+        st.markdown("<div style='height: 0.50rem;'></div>", unsafe_allow_html=True)
+    except Exception:
+        logger.warning("Logo do painel não encontrada/erro ao carregar: %s", logo_path)
+
+
+def show_sidebar_logo():
+    """
+    Logo da sidebar acima do bloco 'Filtros' (tamanho controlado por width).
+    """
+    logo_path = "style/logo/logo_vazado.png"
+    try:
+        c1, c2, c3 = st.sidebar.columns([1, 2, 1])
+        with c2:
+            st.image(logo_path, width=150)  # <-- MUDA AQUI (ex: 110, 130, 160)
+        st.sidebar.markdown("<div style='height: 0.35rem;'></div>", unsafe_allow_html=True)
+    except Exception:
+        logger.warning("Logo da sidebar não encontrada/erro ao carregar: %s", logo_path)
 
 
 def tab_chat(filters: dict):
@@ -185,9 +212,14 @@ def main():
     set_page()  # primeira chamada Streamlit
     set_background()  # aplica o fundo do painel
     load_css("assets/style.css")
-    header()
 
+    # Sidebar: logo acima do bloco "Filtros"
+    show_sidebar_logo()
     filters = get_filters()
+
+    # Painel: logo vazado acima do título principal
+    show_header_logo()
+    header()
 
     tabs = st.tabs(
         ["Chat", "Dashboard", "Mapas", "Tabelas", "Documentos PDF", "Diagnóstico"]
