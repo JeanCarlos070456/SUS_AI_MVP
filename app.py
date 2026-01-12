@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import platform
 import sys
-import base64  # para o fundo em PNG
+import base64
 
 import streamlit as st
 from streamlit_folium import st_folium
@@ -11,10 +11,19 @@ from core.config import settings
 from core.logging import setup_logging
 from core.utils import now_iso
 from ui.layout import set_page, load_css, header
-from ui.sidebar import get_filters
 
 from assistant.chat import respond
-from assistant.memory import get_history, add_message
+from assistant.memory import (
+    init_memory,
+    list_conversations,
+    get_active_id,
+    set_active,
+    new_conversation,
+    rename_conversation,
+    delete_conversation,
+    get_history,
+    add_message,
+)
 
 from data.pipeline import load_cases_dataset, load_points_dataset
 from viz.graficos import serie_incidencia, ranking_casos
@@ -28,13 +37,16 @@ from ingest.index_docs import search
 
 logger = setup_logging()
 
+# ✅ Defaults fixos (sem UI de filtros)
+DEFAULT_FILTERS = {
+    "agravo": "Dengue",
+    "regiao_saude": "Todas",
+    "periodo_semanas": 16,
+}
+
 
 def set_background():
-    """
-    Define o fundo global do app usando o PNG em style/fundo/fundo_painel.png,
-    com camada suave por cima (opacidade controlada no linear-gradient).
-    """
-    img_path = "style/fundo/fundo_painel_vazado.png"
+    img_path = "style/fundo/fundo_painel.png"
     try:
         with open(img_path, "rb") as f:
             data = base64.b64encode(f.read()).decode("utf-8")
@@ -62,45 +74,93 @@ def set_background():
 
 
 def show_header_logo():
-    """
-    Logo vazado centralizado no topo do painel (acima do título).
-    """
     logo_path = "style/logo/logo_vazado.png"
     try:
         c1, c2, c3 = st.columns([1, 2, 1])
         with c2:
-            st.image(logo_path, width=270)  # ajuste o width se quiser
+            st.image(logo_path, width=270)
         st.markdown("<div style='height: 0.50rem;'></div>", unsafe_allow_html=True)
     except Exception:
         logger.warning("Logo do painel não encontrada/erro ao carregar: %s", logo_path)
 
 
 def show_sidebar_logo():
-    """
-    Logo da sidebar acima do bloco 'Filtros' (tamanho controlado por width).
-    """
     logo_path = "style/logo/logo_vazado.png"
     try:
-        c1, c2, c3 = st.sidebar.columns([1, 2, 1])
+        c1, c2, c3 = st.sidebar.columns([1, 3, 1])
         with c2:
-            st.image(logo_path, width=150)  # <-- MUDA AQUI (ex: 110, 130, 160)
+            st.image(logo_path, width=300)
         st.sidebar.markdown("<div style='height: 0.35rem;'></div>", unsafe_allow_html=True)
     except Exception:
         logger.warning("Logo da sidebar não encontrada/erro ao carregar: %s", logo_path)
 
 
-def tab_chat(filters: dict):
-    st.markdown("### Chat operacional (MVP)")
+def chat_sidebar():
+    init_memory()
+
+    st.sidebar.markdown("## Conversas")
+
+    if st.sidebar.button("➕ Novo chat", use_container_width=True):
+        new_conversation("Novo chat")
+        st.rerun()
+
+    items = list_conversations()
+    if not items:
+        new_conversation("Novo chat")
+        st.rerun()
+
+    # UI segura mesmo com títulos repetidos: mostra título, seleciona por ID
+    options = {cid: c["title"] for cid, c in items}
+    ids = list(options.keys())
+
+    active = get_active_id()
+    if active not in options:
+        set_active(ids[0])
+        st.rerun()
+
+    picked_id = st.sidebar.selectbox(
+        "Histórico",
+        ids,
+        index=ids.index(get_active_id()),
+        format_func=lambda cid: options.get(cid, cid),
+        label_visibility="collapsed",
+        key="conversation_picker",
+    )
+
+    if picked_id != get_active_id():
+        set_active(picked_id)
+        st.rerun()
+
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### Ações")
+
+    current_id = get_active_id()
+    current_title = st.session_state["conversations"][current_id]["title"]
+    new_title = st.sidebar.text_input("Renomear conversa", value=current_title, max_chars=80)
+
+    c1, c2 = st.sidebar.columns(2)
+    with c1:
+        if st.button("Salvar", use_container_width=True, key="btn_save_title"):
+            rename_conversation(current_id, new_title.strip() or "Sem título")
+            st.rerun()
+    with c2:
+        if st.button("Apagar", use_container_width=True, key="btn_delete_chat"):
+            delete_conversation(current_id)
+            st.rerun()
+
+
+def tab_chat():
+    st.markdown("### MAIChat")
 
     hist = get_history()
     for m in hist:
         with st.chat_message(m["role"]):
             st.markdown(m["content"])
 
-    msg = st.chat_input("Pergunte algo: ex. 'gráfico', 'tabela', 'mapa', 'pdf'")
+    msg = st.chat_input("Digite sua mensagem…")
     if msg:
         add_message("user", msg)
-        out = respond(msg, filters)
+        out = respond(msg, {})  # chat livre
         add_message("assistant", out["text"])
         st.rerun()
 
@@ -167,9 +227,7 @@ def tab_docs():
                     st.info("Nada encontrado. Gere o índice ou refine a consulta.")
                 else:
                     for h in hits:
-                        with st.expander(
-                            f"{h['name']} | score={h['score']} | {h['chunk_id']}"
-                        ):
+                        with st.expander(f"{h['name']} | score={h['score']} | {h['chunk_id']}"):
                             st.write(h["text"])
             except Exception as e:
                 st.error(f"Erro na busca: {e}")
@@ -209,24 +267,24 @@ def tab_diagnostico():
 
 
 def main():
-    set_page()  # primeira chamada Streamlit
-    set_background()  # aplica o fundo do painel
+    set_page()
+    set_background()
     load_css("assets/style.css")
 
-    # Sidebar: logo acima do bloco "Filtros"
     show_sidebar_logo()
-    filters = get_filters()
+    chat_sidebar()
 
-    # Painel: logo vazado acima do título principal
     show_header_logo()
     header()
 
-    tabs = st.tabs(
-        ["Chat", "Dashboard", "Mapas", "Tabelas", "Documentos PDF", "Diagnóstico"]
-    )
+    tabs = st.tabs(["Chat", "Dashboard", "Mapas", "Tabelas", "Documentos PDF", "Diagnóstico"])
 
     with tabs[0]:
-        tab_chat(filters)
+        tab_chat()
+
+    # ✅ Sem UI de filtros: usa defaults fixos
+    filters = DEFAULT_FILTERS
+
     with tabs[1]:
         tab_dashboard(filters)
     with tabs[2]:

@@ -1,10 +1,118 @@
-/* Estilo leve e neutro. Ajuste à vontade. */
-.stDecoration { background-image: none; }
-
-html, body, [class*="css"] {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+/* =========================
+   TIPOGRAFIA GLOBAL (painel)
+   ========================= */
+html, body, [class*="st-"], [data-testid="stAppViewContainer"]{
+  font-family: "Source Sans Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
 }
 
-section[data-testid="stSidebar"] {
-  border-right: 1px solid rgba(49, 51, 63, 0.12);
+/* Texto padrão no painel (fora da sidebar) */
+[data-testid="stAppViewContainer"] .main,
+[data-testid="stAppViewContainer"] .main *{
+  color: #0C1852;
+}
+
+/* Parágrafos mais legíveis */
+[data-testid="stAppViewContainer"] .main p{
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+  color: rgba(12,24,82,0.92) !important;
+}
+
+/* Headings: hierarquia clara */
+[data-testid="stAppViewContainer"] .main h1{
+  font-size: 34px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.2px !important;
+  color: #0C1852 !important;
+}
+
+[data-testid="stAppViewContainer"] .main h2{
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: #13215D !important;
+}
+
+[data-testid="stAppViewContainer"] .main h3{
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  color: #152664 !important;
+}
+
+/* Labels (forms) no painel */
+[data-testid="stAppViewContainer"] .main label{
+  font-weight: 700 !important;
+  color: rgba(12,24,82,0.85) !important;
+}
+
+/* =========================
+   TITULO "MAIChat" (h3 do tab)
+   ========================= */
+/* deixa o h3 do tab chat com "cara de marca" */
+[data-testid="stAppViewContainer"] .main h3{
+  text-transform: none;
+}
+
+/* Se você quiser o MAIChat mais destacado, use um id no markdown:
+   st.markdown('### <span id="maichat-title">MAIChat</span>', unsafe_allow_html=True)
+*/
+#maichat-title{
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: rgba(246,249,247,0.60);
+  border: 1px solid rgba(12,24,82,0.14);
+  backdrop-filter: blur(6px);
+}
+
+/* =========================
+   CHAT (mensagens) com glass
+   ========================= */
+[data-testid="stChatMessage"]{
+  background: rgba(246,249,247,0.55) !important;
+  border: 1px solid rgba(12,24,82,0.10) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Texto dentro das mensagens do chat */
+[data-testid="stChatMessage"] *{
+  color: rgba(12,24,82,0.92) !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+}
+
+/* Caixa de input do chat mais consistente */
+[data-testid="stChatInput"] textarea{
+  font-size: 16px !important;
+  color: rgba(12,24,82,0.92) !important;
+  background: rgba(246,249,247,0.85) !important;
+  border: 1px solid rgba(12,24,82,0.18) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Placeholder do chat */
+[data-testid="stChatInput"] textarea::placeholder{
+  color: rgba(12,24,82,0.55) !important;
+}
+
+/* =========================
+   Tabs: melhorar contraste no fundo
+   ========================= */
+[data-testid="stTabs"]{
+  background: rgba(246,249,247,0.45) !important;
+  border: 1px solid rgba(12,24,82,0.10) !important;
+  border-radius: 14px !important;
+  padding: 6px 8px !important;
+  backdrop-filter: blur(8px);
+}
+
+[data-testid="stTabs"] button{
+  font-weight: 700 !important;
+  color: rgba(12,24,82,0.80) !important;
+}
+
+[data-testid="stTabs"] button[aria-selected="true"]{
+  color: #0C1852 !important;
+  border-bottom: 3px solid #F2AF21 !important; /* amarelo do sistema */
 }

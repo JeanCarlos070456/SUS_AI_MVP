@@ -1,8 +1,13 @@
 from __future__ import annotations
+
 import pandas as pd
+
 from assistant.intents import infer_intent
+from assistant.memory import get_history
 from data.pipeline import load_cases_dataset
+from services.llm import chat_reply
 from viz.tabelas import tabela_resumo
+
 
 def respond(message: str, filters: dict) -> dict:
     intent = infer_intent(message)
@@ -30,16 +35,17 @@ def respond(message: str, filters: dict) -> dict:
         return {"text": texto, "view": "grafico", "data": {"df": df}}
 
     if intent == "mapa":
-        texto = "Mapa de pontos de serviços (exemplo). Para choropleth real, pluga limites (RS/RA/Município) no geo/."
+        texto = (
+            "Mapa de pontos de serviços (exemplo). Para choropleth real, "
+            "pluga limites (RS/RA/Município) no geo/."
+        )
         return {"text": texto, "view": "mapa", "data": {}}
 
     if intent == "docs":
         texto = "Posso buscar trechos nos PDFs indexados. Abra a aba Documentos (PDF) para consultar."
         return {"text": texto, "view": "docs", "data": {}}
 
-    # Geral
-    texto = (
-        f"Entendi. No MVP eu consigo: (1) série de incidência, (2) ranking de casos, (3) mapa de serviços, "
-        f"(4) consulta a PDFs indexados. Diga: 'gráfico', 'tabela', 'mapa' ou 'pdf'."
-    )
-    return {"text": texto, "view": "geral", "data": {"df": df}}
+    # Geral (conversa livre via LLM)
+    hist = get_history()
+    texto = chat_reply(message, history=hist)
+    return {"text": texto, "view": "geral", "data": {}}
