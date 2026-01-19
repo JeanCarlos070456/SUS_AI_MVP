@@ -105,3 +105,6 @@ minio_data/
 # Node (se algum dia usar)
 # =========================
 node_modules/
+
+.streamlit/secrets.toml
+

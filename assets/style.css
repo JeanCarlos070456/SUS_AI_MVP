@@ -1,118 +1,161 @@
+/* assets/style.css */
+
 /* =========================
-   TIPOGRAFIA GLOBAL (painel)
+   Paleta do MAIC (base)
    ========================= */
-html, body, [class*="st-"], [data-testid="stAppViewContainer"]{
-  font-family: "Source Sans Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+:root{
+  --blue-900: #0C1852;
+  --blue-800: #13215D;
+  --blue-700: #152664;
+  --blue-600: #1E2C66;
+
+  --teal-600: #1D958F;
+  --teal-500: #19BCBF;
+
+  --accent-500: #F2AF21;  /* amarelo/laranja principal */
+  --accent-400: #F6C646;  /* amarelo claro */
+  --accent-600: #DE9137;  /* laranja mais forte */
+
+  --neutral-50: #F6F9F7;
+  --neutral-100:#F4F4F6;
+  --neutral-200:#EEEFEF;
+  --neutral-400:#AAAFBA;
+
+  --text-dark: #0C1852;
 }
 
-/* Texto padrão no painel (fora da sidebar) */
-[data-testid="stAppViewContainer"] .main,
-[data-testid="stAppViewContainer"] .main *{
-  color: #0C1852;
+/* =========================
+   Sidebar azul do sistema
+   ========================= */
+[data-testid="stSidebar"]{
+  background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
 }
 
-/* Parágrafos mais legíveis */
-[data-testid="stAppViewContainer"] .main p{
-  font-size: 16px !important;
-  line-height: 1.55 !important;
-  color: rgba(12,24,82,0.92) !important;
+[data-testid="stSidebar"] *{
+  color: #FFFFFF !important;
 }
 
-/* Headings: hierarquia clara */
-[data-testid="stAppViewContainer"] .main h1{
-  font-size: 34px !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.2px !important;
-  color: #0C1852 !important;
+/* Títulos dentro da sidebar */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label{
+  color: #FFFFFF !important;
+  opacity: 0.95;
 }
 
-[data-testid="stAppViewContainer"] .main h2{
-  font-size: 26px !important;
-  font-weight: 800 !important;
-  color: #13215D !important;
+/* Separadores */
+[data-testid="stSidebar"] hr{
+  border-color: rgba(255,255,255,0.20) !important;
 }
 
-[data-testid="stAppViewContainer"] .main h3{
-  font-size: 22px !important;
-  font-weight: 800 !important;
-  color: #152664 !important;
+/* “Cards”/containers da sidebar (inputs e caixas) */
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div{
+  /* leve transparência pra dar contraste */
 }
 
-/* Labels (forms) no painel */
-[data-testid="stAppViewContainer"] .main label{
+/* =========================
+   Inputs na sidebar (selectbox, text_input)
+   ========================= */
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] textarea{
+  background: rgba(255,255,255,0.10) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  border-radius: 10px !important;
+}
+
+[data-testid="stSidebar"] input::placeholder,
+[data-testid="stSidebar"] textarea::placeholder{
+  color: rgba(255,255,255,0.65) !important;
+}
+
+/* Selectbox */
+[data-testid="stSidebar"] [data-testid="stSelectbox"] > div{
+  background: rgba(255,255,255,0.10) !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  border-radius: 10px !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stSelectbox"] svg{
+  fill: #FFFFFF !important;
+}
+
+/* Slider */
+[data-testid="stSidebar"] [data-testid="stSlider"]{
+  color: #FFFFFF !important;
+}
+[data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"]{
+  background: var(--accent-500) !important;
+  border: 2px solid rgba(255,255,255,0.70) !important;
+}
+[data-testid="stSidebar"] [data-testid="stSlider"] [data-baseweb="slider"] > div > div{
+  background: rgba(255,255,255,0.22) !important;
+}
+
+/* =========================
+   Botões amarelados (sidebar e painel)
+   ========================= */
+.stButton > button{
+  background: linear-gradient(180deg, var(--accent-400) 0%, var(--accent-500) 100%) !important;
+  color: var(--text-dark) !important;
+  border: 1px solid rgba(12,24,82,0.25) !important;
+  border-radius: 12px !important;
   font-weight: 700 !important;
-  color: rgba(12,24,82,0.85) !important;
+  box-shadow: 0 6px 16px rgba(12,24,82,0.15) !important;
+}
+
+.stButton > button:hover{
+  background: linear-gradient(180deg, var(--accent-500) 0%, var(--accent-600) 100%) !important;
+  transform: translateY(-1px);
+}
+
+.stButton > button:active{
+  transform: translateY(0px);
+  box-shadow: 0 3px 10px rgba(12,24,82,0.18) !important;
+}
+
+/* Botão “Novo chat” e afins na sidebar ficam coerentes */
+[data-testid="stSidebar"] .stButton > button{
+  width: 100% !important;
 }
 
 /* =========================
-   TITULO "MAIChat" (h3 do tab)
+   Chat input (caixa de mensagem) mais “MAIC”
    ========================= */
-/* deixa o h3 do tab chat com "cara de marca" */
-[data-testid="stAppViewContainer"] .main h3{
-  text-transform: none;
-}
-
-/* Se você quiser o MAIChat mais destacado, use um id no markdown:
-   st.markdown('### <span id="maichat-title">MAIChat</span>', unsafe_allow_html=True)
-*/
-#maichat-title{
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 12px;
-  background: rgba(246,249,247,0.60);
-  border: 1px solid rgba(12,24,82,0.14);
-  backdrop-filter: blur(6px);
-}
-
-/* =========================
-   CHAT (mensagens) com glass
-   ========================= */
-[data-testid="stChatMessage"]{
-  background: rgba(246,249,247,0.55) !important;
-  border: 1px solid rgba(12,24,82,0.10) !important;
-  border-radius: 14px !important;
-  backdrop-filter: blur(8px);
-}
-
-/* Texto dentro das mensagens do chat */
-[data-testid="stChatMessage"] *{
-  color: rgba(12,24,82,0.92) !important;
-  font-size: 15px !important;
-  line-height: 1.5 !important;
-}
-
-/* Caixa de input do chat mais consistente */
 [data-testid="stChatInput"] textarea{
-  font-size: 16px !important;
-  color: rgba(12,24,82,0.92) !important;
-  background: rgba(246,249,247,0.85) !important;
+  border-radius: 14px !important;
   border: 1px solid rgba(12,24,82,0.18) !important;
-  border-radius: 16px !important;
-  backdrop-filter: blur(8px);
-}
-
-/* Placeholder do chat */
-[data-testid="stChatInput"] textarea::placeholder{
-  color: rgba(12,24,82,0.55) !important;
 }
 
 /* =========================
-   Tabs: melhorar contraste no fundo
+   Ajuste geral do container (pra não ficar “gigante”)
    ========================= */
-[data-testid="stTabs"]{
-  background: rgba(246,249,247,0.45) !important;
-  border: 1px solid rgba(12,24,82,0.10) !important;
-  border-radius: 14px !important;
-  padding: 6px 8px !important;
-  backdrop-filter: blur(8px);
+.block-container{
+  padding-top: 0.8rem !important;
+}
+/* Toolbar/topo com a mesma cor da sidebar */
+div.stAppToolbar{
+  background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
 }
 
-[data-testid="stTabs"] button{
-  font-weight: 700 !important;
-  color: rgba(12,24,82,0.80) !important;
+/* Alguns builds do Streamlit usam wrapper/header diferente */
+header[data-testid="stHeader"]{
+  background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
 }
 
-[data-testid="stTabs"] button[aria-selected="true"]{
-  color: #0C1852 !important;
-  border-bottom: 3px solid #F2AF21 !important; /* amarelo do sistema */
+/* Ícones/textos do topo em branco */
+div.stAppToolbar, 
+header[data-testid="stHeader"]{
+  color: #FFFFFF !important;
+}
+div.stAppToolbar svg,
+header[data-testid="stHeader"] svg{
+  fill: #FFFFFF !important;
+}
+[data-testid="stAppViewContainer"] > .main > div{
+  background: transparent !important;
 }
