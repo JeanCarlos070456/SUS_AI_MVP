@@ -27,3 +27,6 @@ class Settings:
     ENABLE_DIAGNOSTICS: bool = (_env("ENABLE_DIAGNOSTICS", "1") or "1") in ("1","true","True","yes","Y")
 
 settings = Settings()
+
+#atualização -3:
+#def Activate sorce
