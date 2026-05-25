@@ -1,161 +1,83 @@
-/* assets/style.css */
-
-/* =========================
-   Paleta do MAIC (base)
-   ========================= */
-:root{
+/* assets/style.css - Sistema MAIC (Saúde AI) */
+:root {
+  /* Paleta MAIC */
   --blue-900: #0C1852;
   --blue-800: #13215D;
   --blue-700: #152664;
   --blue-600: #1E2C66;
-
   --teal-600: #1D958F;
   --teal-500: #19BCBF;
-
-  --accent-500: #F2AF21;  /* amarelo/laranja principal */
-  --accent-400: #F6C646;  /* amarelo claro */
-  --accent-600: #DE9137;  /* laranja mais forte */
-
+  --accent-500: #F2AF21;  /* Amarelo/Laranja principal */
+  --accent-400: #F6C646;  /* Amarelo claro */
+  --accent-600: #DE9137;  /* Laranja forte */
   --neutral-50: #F6F9F7;
-  --neutral-100:#F4F4F6;
-  --neutral-200:#EEEFEF;
-  --neutral-400:#AAAFBA;
-
+  --neutral-100: #F4F4F6;
+  --neutral-200: #EEEFEF;
+  --neutral-400: #AAAFBA;
   --text-dark: #0C1852;
+  --radius: 12px;
 }
-
-/* =========================
-   Sidebar azul do sistema
-   ========================= */
-[data-testid="stSidebar"]{
+/* Estilo Geral */
+body {
+  background-color: var(--neutral-50);
+  color: var(--text-dark);
+  font-family: 'Inter', sans-serif;
+}
+/* Sidebar MAIC - Gradiente e Contraste */
+.sidebar-maic {
   background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
-}
-
-[data-testid="stSidebar"] *{
   color: #FFFFFF !important;
 }
-
-/* Títulos dentro da sidebar */
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3,
-[data-testid="stSidebar"] p,
-[data-testid="stSidebar"] label{
-  color: #FFFFFF !important;
-  opacity: 0.95;
-}
-
-/* Separadores */
-[data-testid="stSidebar"] hr{
-  border-color: rgba(255,255,255,0.20) !important;
-}
-
-/* “Cards”/containers da sidebar (inputs e caixas) */
-[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div{
-  /* leve transparência pra dar contraste */
-}
-
-/* =========================
-   Inputs na sidebar (selectbox, text_input)
-   ========================= */
-[data-testid="stSidebar"] input,
-[data-testid="stSidebar"] textarea{
-  background: rgba(255,255,255,0.10) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255,255,255,0.22) !important;
-  border-radius: 10px !important;
-}
-
-[data-testid="stSidebar"] input::placeholder,
-[data-testid="stSidebar"] textarea::placeholder{
-  color: rgba(255,255,255,0.65) !important;
-}
-
-/* Selectbox */
-[data-testid="stSidebar"] [data-testid="stSelectbox"] > div{
-  background: rgba(255,255,255,0.10) !important;
-  border: 1px solid rgba(255,255,255,0.22) !important;
-  border-radius: 10px !important;
-}
-
-[data-testid="stSidebar"] [data-testid="stSelectbox"] svg{
-  fill: #FFFFFF !important;
-}
-
-/* Slider */
-[data-testid="stSidebar"] [data-testid="stSlider"]{
-  color: #FFFFFF !important;
-}
-[data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"]{
-  background: var(--accent-500) !important;
-  border: 2px solid rgba(255,255,255,0.70) !important;
-}
-[data-testid="stSidebar"] [data-testid="stSlider"] [data-baseweb="slider"] > div > div{
-  background: rgba(255,255,255,0.22) !important;
-}
-
-/* =========================
-   Botões amarelados (sidebar e painel)
-   ========================= */
-.stButton > button{
+/* Botões MAIC - Vibrantes e Criativos */
+.btn-maic {
   background: linear-gradient(180deg, var(--accent-400) 0%, var(--accent-500) 100%) !important;
   color: var(--text-dark) !important;
-  border: 1px solid rgba(12,24,82,0.25) !important;
-  border-radius: 12px !important;
+  border: 1px solid rgba(12, 24, 82, 0.25) !important;
+  border-radius: var(--radius) !important;
   font-weight: 700 !important;
-  box-shadow: 0 6px 16px rgba(12,24,82,0.15) !important;
+  box-shadow: 0 6px 16px rgba(12, 24, 82, 0.15) !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer;
 }
-
-.stButton > button:hover{
+.btn-maic:hover {
   background: linear-gradient(180deg, var(--accent-500) 0%, var(--accent-600) 100%) !important;
   transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(12, 24, 82, 0.20) !important;
 }
-
-.stButton > button:active{
-  transform: translateY(0px);
-  box-shadow: 0 3px 10px rgba(12,24,82,0.18) !important;
+/* Efeito Glassmorphism (Vidro) */
+.glass {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
-
-/* Botão “Novo chat” e afins na sidebar ficam coerentes */
-[data-testid="stSidebar"] .stButton > button{
-  width: 100% !important;
+.glass-dark {
+  background: rgba(12, 24, 82, 0.1) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white !important;
 }
-
-/* =========================
-   Chat input (caixa de mensagem) mais “MAIC”
-   ========================= */
-[data-testid="stChatInput"] textarea{
-  border-radius: 14px !important;
-  border: 1px solid rgba(12,24,82,0.18) !important;
-}
-
-/* =========================
-   Ajuste geral do container (pra não ficar “gigante”)
-   ========================= */
-.block-container{
-  padding-top: 0.8rem !important;
-}
-/* Toolbar/topo com a mesma cor da sidebar */
-div.stAppToolbar{
-  background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
-}
-
-/* Alguns builds do Streamlit usam wrapper/header diferente */
-header[data-testid="stHeader"]{
-  background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
-}
-
-/* Ícones/textos do topo em branco */
-div.stAppToolbar, 
-header[data-testid="stHeader"]{
+/* Inputs na Sidebar */
+.input-sidebar {
+  background: rgba(255, 255, 255, 0.1) !important;
   color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 10px !important;
+  padding: 8px 12px;
 }
-div.stAppToolbar svg,
-header[data-testid="stHeader"] svg{
-  fill: #FFFFFF !important;
+.input-sidebar::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
-[data-testid="stAppViewContainer"] > .main > div{
-  background: transparent !important;
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-400);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-600);
 }

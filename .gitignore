@@ -108,3 +108,10 @@ node_modules/
 
 .streamlit/secrets.toml
 
+# catalogos de dados
+
+drive_catalog_summary.json
+drive_catalog.csv
+drive_catalog.json
+maic-sesdf-bae57950609e.json
+
