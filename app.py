@@ -85,7 +85,7 @@ def show_header_logo():
 
 
 def show_sidebar_logo():
-    logo_path = "style/logo/logo_vazado.png"
+    logo_path = "style/logo/logo.png"
     try:
         c1, c2, c3 = st.sidebar.columns([1, 3, 1])
         with c2:

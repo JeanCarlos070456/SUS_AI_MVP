@@ -1,83 +1,551 @@
 /* assets/style.css - Sistema MAIC (Saúde AI) */
+/* =========================================================
+   MAIC - Monitoramento e Avaliação de Indicadores e Custos
+   Tema: Saúde + IA + Custos + Indicadores
+   Paleta oficial:
+   #f2bb4a | #f2d699 | #0b3f83 | #5c78a1 | #a9d1d8
+   ========================================================= */
+
 :root {
-  /* Paleta MAIC */
-  --blue-900: #0C1852;
-  --blue-800: #13215D;
-  --blue-700: #152664;
-  --blue-600: #1E2C66;
-  --teal-600: #1D958F;
-  --teal-500: #19BCBF;
-  --accent-500: #F2AF21;  /* Amarelo/Laranja principal */
-  --accent-400: #F6C646;  /* Amarelo claro */
-  --accent-600: #DE9137;  /* Laranja forte */
-  --neutral-50: #F6F9F7;
-  --neutral-100: #F4F4F6;
-  --neutral-200: #EEEFEF;
-  --neutral-400: #AAAFBA;
-  --text-dark: #0C1852;
-  --radius: 12px;
+  --maic-gold: #f2bb4a;
+  --maic-gold-soft: #f2d699;
+  --maic-blue: #0b3f83;
+  --maic-blue-soft: #5c78a1;
+  --maic-cyan: #a9d1d8;
+
+  --maic-white: #f7fbfc;
+  --maic-glass: rgba(247, 251, 252, 0.62);
+  --maic-glass-strong: rgba(247, 251, 252, 0.78);
+  --maic-dark-glass: rgba(11, 63, 131, 0.82);
+
+  --maic-text: #0b3f83;
+  --maic-text-soft: rgba(11, 63, 131, 0.78);
+
+  --maic-radius: 16px;
+  --maic-radius-sm: 11px;
+  --maic-shadow: 0 14px 34px rgba(11, 63, 131, 0.18);
+  --maic-shadow-soft: 0 8px 22px rgba(11, 63, 131, 0.12);
+  --maic-border: 1px solid rgba(169, 209, 216, 0.55);
 }
-/* Estilo Geral */
-body {
-  background-color: var(--neutral-50);
-  color: var(--text-dark);
-  font-family: 'Inter', sans-serif;
+
+/* =========================
+   Base global
+   ========================= */
+
+html,
+body,
+.stApp,
+[class*="st-"] {
+  font-family: "Source Sans Pro", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
-/* Sidebar MAIC - Gradiente e Contraste */
-.sidebar-maic {
-  background: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 100%) !important;
-  color: #FFFFFF !important;
+
+.stApp {
+  color: var(--maic-text) !important;
 }
-/* Botões MAIC - Vibrantes e Criativos */
-.btn-maic {
-  background: linear-gradient(180deg, var(--accent-400) 0%, var(--accent-500) 100%) !important;
-  color: var(--text-dark) !important;
-  border: 1px solid rgba(12, 24, 82, 0.25) !important;
-  border-radius: var(--radius) !important;
-  font-weight: 700 !important;
-  box-shadow: 0 6px 16px rgba(12, 24, 82, 0.15) !important;
-  transition: all 0.2s ease !important;
-  cursor: pointer;
+
+/* reduz respiro exagerado */
+.block-container {
+  padding-top: 0.7rem !important;
+  padding-bottom: 2rem !important;
+  max-width: 1180px !important;
 }
-.btn-maic:hover {
-  background: linear-gradient(180deg, var(--accent-500) 0%, var(--accent-600) 100%) !important;
+
+/* fundo principal transparente para mostrar a arte */
+[data-testid="stAppViewContainer"] {
+  background: transparent !important;
+}
+
+/* =========================
+   Toolbar / topo institucional
+   ========================= */
+
+div.stAppToolbar,
+header[data-testid="stHeader"],
+[data-testid="stAppViewContainer"]>header {
+  background: linear-gradient(180deg,
+      var(--maic-blue) 0%,
+      #08336b 100%) !important;
+  border-bottom: 1px solid rgba(242, 214, 153, 0.25) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 22px rgba(11, 63, 131, 0.18) !important;
+}
+
+div.stAppToolbar svg,
+header[data-testid="stHeader"] svg,
+[data-testid="stAppViewContainer"]>header svg {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* =========================
+   Sidebar institucional
+   ========================= */
+
+[data-testid="stSidebar"] {
+  background:
+    radial-gradient(circle at 30% 10%, rgba(169, 209, 216, 0.18), transparent 35%),
+    linear-gradient(180deg, var(--maic-blue) 0%, #082f63 100%) !important;
+  border-right: 1px solid rgba(242, 214, 153, 0.25) !important;
+  box-shadow: 10px 0 30px rgba(11, 63, 131, 0.22) !important;
+}
+
+[data-testid="stSidebar"]>div {
+  padding-top: 1.2rem !important;
+}
+
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] * {
+  color: #ffffff !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+  color: #ffffff !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.3px !important;
+}
+
+[data-testid="stSidebar"] h2 {
+  font-size: 1.25rem !important;
+  margin-top: 0.7rem !important;
+}
+
+[data-testid="stSidebar"] h3 {
+  font-size: 1.05rem !important;
+}
+
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+[data-testid="stSidebar"] hr {
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(242, 214, 153, 0.45),
+      transparent) !important;
+  margin: 1.35rem 0 !important;
+}
+
+/* Logo sidebar */
+[data-testid="stSidebar"] img {
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+[data-testid="stSidebar"] img:hover {
+  transform: scale(1.035);
+  filter: drop-shadow(0 12px 26px rgba(242, 187, 74, 0.25));
+}
+
+/* =========================
+   Botões
+   ========================= */
+
+.stButton>button,
+[data-testid="stSidebar"] .stButton>button,
+.stDownloadButton>button {
+  background: linear-gradient(135deg,
+      var(--maic-gold-soft) 0%,
+      var(--maic-gold) 55%,
+      #dfa22e 100%) !important;
+  color: var(--maic-blue) !important;
+  border: 1px solid rgba(242, 214, 153, 0.9) !important;
+  border-radius: var(--maic-radius-sm) !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.1px !important;
+  box-shadow: 0 8px 18px rgba(11, 63, 131, 0.22) !important;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease,
+    background 0.18s ease !important;
+}
+
+.stButton>button:hover,
+[data-testid="stSidebar"] .stButton>button:hover,
+.stDownloadButton>button:hover {
+  transform: translateY(-2px) scale(1.01);
+  filter: brightness(1.04);
+  box-shadow: 0 12px 24px rgba(11, 63, 131, 0.28) !important;
+}
+
+.stButton>button:active,
+[data-testid="stSidebar"] .stButton>button:active,
+.stDownloadButton>button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 5px 12px rgba(11, 63, 131, 0.20) !important;
+}
+
+/* botões da sidebar ocupam largura */
+[data-testid="stSidebar"] .stButton>button {
+  width: 100% !important;
+}
+
+/* =========================
+   Inputs / Selectbox / Textarea
+   ========================= */
+
+input,
+textarea,
+[data-baseweb="select"]>div {
+  border-radius: var(--maic-radius-sm) !important;
+  border: 1px solid rgba(169, 209, 216, 0.72) !important;
+  background: rgba(247, 251, 252, 0.92) !important;
+  color: var(--maic-blue) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease !important;
+}
+
+input:focus,
+textarea:focus,
+[data-baseweb="select"]>div:focus-within {
+  border-color: var(--maic-gold) !important;
+  box-shadow:
+    0 0 0 3px rgba(242, 187, 74, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(11, 63, 131, 0.50) !important;
+}
+
+/* inputs dentro da sidebar */
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] textarea,
+[data-testid="stSidebar"] [data-baseweb="select"]>div {
+  background: rgba(247, 251, 252, 0.96) !important;
+  color: var(--maic-blue) !important;
+  border: 1px solid rgba(242, 214, 153, 0.55) !important;
+}
+
+[data-testid="stSidebar"] input::placeholder,
+[data-testid="stSidebar"] textarea::placeholder {
+  color: rgba(11, 63, 131, 0.48) !important;
+}
+
+/* ícones de select */
+[data-baseweb="select"] svg {
+  color: var(--maic-blue) !important;
+  fill: var(--maic-blue) !important;
+}
+
+/* =========================
+   Tabs como painel de indicadores
+   ========================= */
+
+[data-testid="stTabs"] {
+  background: rgba(247, 251, 252, 0.54) !important;
+  border: 1px solid rgba(169, 209, 216, 0.48) !important;
+  border-radius: var(--maic-radius) !important;
+  padding: 8px 10px 12px 10px !important;
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  box-shadow: var(--maic-shadow-soft) !important;
+}
+
+[data-testid="stTabs"] [role="tablist"] {
+  gap: 0.25rem !important;
+  border-bottom: 1px solid rgba(92, 120, 161, 0.22) !important;
+}
+
+[data-testid="stTabs"] button {
+  color: rgba(11, 63, 131, 0.76) !important;
+  font-weight: 750 !important;
+  border-radius: 10px 10px 0 0 !important;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease !important;
+}
+
+[data-testid="stTabs"] button:hover {
+  background: rgba(169, 209, 216, 0.24) !important;
+  color: var(--maic-blue) !important;
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(12, 24, 82, 0.20) !important;
 }
-/* Efeito Glassmorphism (Vidro) */
-.glass {
-  background: rgba(255, 255, 255, 0.7) !important;
+
+[data-testid="stTabs"] button[aria-selected="true"] {
+  color: var(--maic-blue) !important;
+  background: linear-gradient(180deg,
+      rgba(242, 214, 153, 0.38),
+      rgba(247, 251, 252, 0)) !important;
+  border-bottom: 3px solid var(--maic-gold) !important;
+}
+
+/* =========================
+   Tipografia do painel principal
+   ========================= */
+
+[data-testid="stAppViewContainer"] .main h1,
+[data-testid="stAppViewContainer"] .main h2,
+[data-testid="stAppViewContainer"] .main h3 {
+  color: var(--maic-blue) !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.35px !important;
+}
+
+[data-testid="stAppViewContainer"] .main h1 {
+  font-size: 2.1rem !important;
+}
+
+[data-testid="stAppViewContainer"] .main h2 {
+  font-size: 1.65rem !important;
+}
+
+[data-testid="stAppViewContainer"] .main h3 {
+  font-size: 1.45rem !important;
+}
+
+[data-testid="stAppViewContainer"] .main p,
+[data-testid="stAppViewContainer"] .main li,
+[data-testid="stAppViewContainer"] .main span {
+  color: rgba(11, 63, 131, 0.88);
+}
+
+/* título MAIChat */
+#maic-chat,
+#maichat-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,
+      rgba(247, 251, 252, 0.76),
+      rgba(169, 209, 216, 0.42));
+  border: 1px solid rgba(169, 209, 216, 0.56);
+  color: var(--maic-blue) !important;
+  box-shadow: var(--maic-shadow-soft);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
 }
-.glass-dark {
-  background: rgba(12, 24, 82, 0.1) !important;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white !important;
+
+/* =========================
+   Chat
+   ========================= */
+
+[data-testid="stChatMessage"] {
+  background: rgba(247, 251, 252, 0.62) !important;
+  border: 1px solid rgba(169, 209, 216, 0.55) !important;
+  border-left: 5px solid var(--maic-gold) !important;
+  border-radius: var(--maic-radius) !important;
+  box-shadow: var(--maic-shadow-soft) !important;
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  animation: maicFadeUp 0.28s ease both;
 }
-/* Inputs na Sidebar */
-.input-sidebar {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 10px !important;
-  padding: 8px 12px;
+
+[data-testid="stChatMessage"] * {
+  color: rgba(11, 63, 131, 0.93) !important;
+  font-size: 0.96rem !important;
+  line-height: 1.55 !important;
 }
-.input-sidebar::placeholder {
-  color: rgba(255, 255, 255, 0.6) !important;
+
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] {
+  padding-top: 0.1rem !important;
 }
-/* Scrollbar Personalizada */
+
+/* avatar do chat */
+[data-testid="stChatMessageAvatarUser"],
+[data-testid="stChatMessageAvatarAssistant"] {
+  background: linear-gradient(135deg, var(--maic-gold), var(--maic-gold-soft)) !important;
+  color: var(--maic-blue) !important;
+}
+
+/* input do chat fixo */
+[data-testid="stChatInput"] {
+  border-radius: 999px !important;
+}
+
+[data-testid="stChatInput"] textarea {
+  background: rgba(247, 251, 252, 0.95) !important;
+  color: var(--maic-blue) !important;
+  border: 1px solid rgba(169, 209, 216, 0.74) !important;
+  border-radius: 999px !important;
+  font-size: 1rem !important;
+  box-shadow: 0 8px 24px rgba(11, 63, 131, 0.16) !important;
+}
+
+[data-testid="stChatInput"] textarea:focus {
+  border-color: var(--maic-gold) !important;
+  box-shadow:
+    0 0 0 3px rgba(242, 187, 74, 0.24),
+    0 8px 24px rgba(11, 63, 131, 0.16) !important;
+}
+
+/* botão enviar chat */
+[data-testid="stChatInput"] button svg {
+  color: var(--maic-blue) !important;
+  fill: var(--maic-blue) !important;
+}
+
+/* =========================
+   Métricas / Cards / Dataframes
+   ========================= */
+
+[data-testid="stMetric"] {
+  background: linear-gradient(135deg,
+      rgba(247, 251, 252, 0.72),
+      rgba(169, 209, 216, 0.34)) !important;
+  border: 1px solid rgba(169, 209, 216, 0.58) !important;
+  border-radius: var(--maic-radius) !important;
+  padding: 1rem !important;
+  box-shadow: var(--maic-shadow-soft) !important;
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-testid="stMetric"]:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--maic-shadow) !important;
+}
+
+[data-testid="stMetricLabel"] {
+  color: rgba(11, 63, 131, 0.72) !important;
+  font-weight: 800 !important;
+}
+
+[data-testid="stMetricValue"] {
+  color: var(--maic-blue) !important;
+  font-weight: 900 !important;
+}
+
+[data-testid="stDataFrame"],
+[data-testid="stTable"] {
+  border-radius: var(--maic-radius) !important;
+  overflow: hidden !important;
+  box-shadow: var(--maic-shadow-soft) !important;
+}
+
+/* =========================
+   Plotly / gráficos container
+   ========================= */
+
+[data-testid="stPlotlyChart"] {
+  background: rgba(247, 251, 252, 0.58) !important;
+  border: 1px solid rgba(169, 209, 216, 0.55) !important;
+  border-radius: var(--maic-radius) !important;
+  padding: 0.75rem !important;
+  box-shadow: var(--maic-shadow-soft) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   Expander / documentos
+   ========================= */
+
+.streamlit-expanderHeader {
+  background: rgba(247, 251, 252, 0.72) !important;
+  border-radius: var(--maic-radius-sm) !important;
+  color: var(--maic-blue) !important;
+  font-weight: 800 !important;
+  border: 1px solid rgba(169, 209, 216, 0.55) !important;
+}
+
+[data-testid="stExpander"] {
+  border: 1px solid rgba(169, 209, 216, 0.45) !important;
+  border-radius: var(--maic-radius) !important;
+  background: rgba(247, 251, 252, 0.56) !important;
+  box-shadow: var(--maic-shadow-soft) !important;
+}
+
+/* =========================
+   Slider
+   ========================= */
+
+[data-testid="stSlider"] [role="slider"] {
+  background: var(--maic-gold) !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(242, 187, 74, 0.18) !important;
+}
+
+[data-testid="stSlider"] [data-baseweb="slider"]>div>div {
+  background: linear-gradient(90deg, var(--maic-gold), var(--maic-cyan)) !important;
+}
+
+/* =========================
+   Scrollbar
+   ========================= */
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
+  height: 9px;
 }
+
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(169, 209, 216, 0.18);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--neutral-400);
-  border-radius: 10px;
+  background: linear-gradient(180deg, var(--maic-blue-soft), var(--maic-blue));
+  border-radius: 999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--blue-600);
+  background: linear-gradient(180deg, var(--maic-gold), var(--maic-blue));
+}
+
+/* =========================
+   Animações discretas
+   ========================= */
+
+@keyframes maicFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes maicPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(242, 187, 74, 0.32);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(242, 187, 74, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(242, 187, 74, 0);
+  }
+}
+
+[data-testid="stSidebar"] .stButton>button:first-child {
+  animation: maicPulse 2.8s infinite;
+}
+
+/* =========================
+   Ajustes mobile
+   ========================= */
+
+@media (max-width: 768px) {
+  .block-container {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+  }
+
+  [data-testid="stTabs"] {
+    padding: 6px !important;
+  }
+
+  [data-testid="stTabs"] button {
+    font-size: 0.82rem !important;
+  }
+
+  [data-testid="stAppViewContainer"] .main h3 {
+    font-size: 1.25rem !important;
+  }
 }
